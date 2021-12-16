@@ -1,0 +1,28 @@
+spring:
+  mvc:
+    throwExceptionIfNoHandlerFound: true
+  resources:
+    add-mappings: false
+  application:
+    name: trip
+  session:
+    store-type: none
+  datasource:
+    url: "jdbc:postgresql://postgres-trip:5432/postgres"
+    username: "postgres"
+    password: ""
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database: "postgresql"
+    hibernate:
+      ddl-auto: validate
+  cloud:
+    consul:
+      host: discovery
+      port: 8500
+      discovery:
+        instance-id: ${spring.application.name}:${random.value}
+
+portServiceAddress: "port:8080"
+crewServiceAddress: "crew:8080"
+boatServiceAddress: "boat:8080"

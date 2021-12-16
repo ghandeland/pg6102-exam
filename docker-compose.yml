@@ -1,0 +1,76 @@
+version: "3.3"
+
+services:
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "80:8080"
+    depends_on:
+      - discovery
+
+  discovery:
+    image: "consul:1.8"
+    environment:
+      - CONSUL_LOCAL_CONFIG={"log_level":"info"}
+
+  postgres-port:
+    image: "postgres:10"
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+  postgres-crew:
+    image: "postgres:10"
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+  postgres-boat:
+    image: "postgres:10"
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+  postgres-trip:
+    image: "postgres:10"
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+  port:
+    build:
+      context: ./port
+      dockerfile: Dockerfile
+    depends_on:
+      - api-gateway
+      - postgres-port
+      - discovery
+
+  crew:
+    build:
+      context: ./crew
+      dockerfile: Dockerfile
+    depends_on:
+      - api-gateway
+      - postgres-crew
+      - discovery
+
+  boat:
+    build:
+      context: ./boat
+      dockerfile: Dockerfile
+    depends_on:
+      - api-gateway
+      - postgres-boat
+      - discovery
+
+  trip:
+    build:
+      context: ./trip
+      dockerfile: Dockerfile
+    depends_on:
+      - api-gateway
+      - port
+      - crew
+      - boat
+      - postgres-trip
+      - discovery

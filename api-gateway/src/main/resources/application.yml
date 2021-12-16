@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    consul:
+      host: discovery
+      port: 8500
+      discovery:
+        instance-id: ${spring.application.name}:${random.value}
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: Port
+          uri: lb://port
+          predicates:
+            - Path=/api/port/**
+        - id: Crew
+          uri: lb://crew
+          predicates:
+            - Path=/api/crew/**
+        - id: Boat
+          uri: lb://boat
+          predicates:
+            - Path=/api/boat/**
+        - id: Trip
+          uri: lb://trip
+          predicates:
+            - Path=/api/trip/**
