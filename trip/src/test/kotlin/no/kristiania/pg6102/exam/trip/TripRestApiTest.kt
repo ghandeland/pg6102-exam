@@ -7,7 +7,6 @@ import com.github.tomakehurst.wiremock.client.WireMock.get
 import com.github.tomakehurst.wiremock.client.WireMock.ok
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration
-import com.github.tomakehurst.wiremock.http.Response.response
 import io.restassured.RestAssured
 import io.restassured.http.ContentType
 import no.kristiania.pg6102.exam.trip.db.TripService
@@ -15,7 +14,6 @@ import no.kristiania.pg6102.exam.trip.dto.TripDto
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -28,11 +26,11 @@ import org.springframework.context.ConfigurableApplicationContext
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit.jupiter.SpringExtension
-import org.tsdes.advanced.rest.dto.WrappedResponse
+import no.kristiania.pg6102.exam.rest.dto.WrappedResponse
 import javax.annotation.PostConstruct
 
 
-@ActiveProfiles("Test")
+@ActiveProfiles("TripRestApiTest","test")
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = [(TripRestApiTest.Companion.Initializer::class)])

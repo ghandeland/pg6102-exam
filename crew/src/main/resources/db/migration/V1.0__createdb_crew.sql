@@ -1,4 +1,3 @@
-CREATE SEQUENCE hibernate_sequence START WITH 9 INCREMENT BY 1;
 
 CREATE TABLE crew (
    crew_id VARCHAR(255) NOT NULL,
@@ -17,4 +16,12 @@ INSERT INTO crew (crew_id, crew_name, crew_size) VALUES
     ('c006', 'Crew Golf', 125),
     ('c007', 'Crew Hotel', 2),
     ('c008', 'Crew India', 30),
-    ('c009', 'Crew Juliet', 500);
+    ('c009', 'Crew Juliet', 500),
+    ('c010', 'Crew Kilo', 133),
+    ('c011', 'Crew Lima', 14),
+    ('c012', 'Crew Mike', 178),
+    ('c013', 'Crew November', 102),
+    ('c014', 'Crew Oscar', 29),
+    ('c015', 'Crew Papa', 311),
+    ('c016', 'Crew Quebec', 72),
+    ('c017', 'Crew Romeo', 52);

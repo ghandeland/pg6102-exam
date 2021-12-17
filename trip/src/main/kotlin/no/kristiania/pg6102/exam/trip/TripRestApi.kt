@@ -1,23 +1,34 @@
 package no.kristiania.pg6102.exam.trip
 
+import io.swagger.annotations.Api
+import io.swagger.annotations.ApiOperation
+import io.swagger.annotations.ApiParam
 import no.kristiania.pg6102.exam.shared.dto.BoatDto
 import no.kristiania.pg6102.exam.shared.dto.CrewDto
-import no.kristiania.pg6102.exam.shared.dto.PortDto
 import no.kristiania.pg6102.exam.trip.TripDtoConverter.transform
 import no.kristiania.pg6102.exam.trip.db.TripService
 import no.kristiania.pg6102.exam.trip.dto.TripDto
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import org.tsdes.advanced.rest.dto.RestResponseFactory
-import org.tsdes.advanced.rest.dto.WrappedResponse
+import no.kristiania.pg6102.exam.rest.dto.RestResponseFactory
+import no.kristiania.pg6102.exam.rest.dto.WrappedResponse
 
+@Api(value = "/api/trip", description = "Manages trips and data related to trips")
 @RestController
 @RequestMapping(path = ["/api/trip"], produces = [(MediaType.APPLICATION_JSON_VALUE)])
 class TripRestApi(
     private val tripService: TripService
 ) {
 
+
+    /*
+    * Keyset pagination would not be useful here. A conceivable use case
+    * for this endpoint, would be to return all data, so that the users
+    * would be able to search for certain crews using functionality on
+    * the frontend. This would not be possible with keyset pagination.
+    */
+    @ApiOperation("Retrieve all saved trips")
     @GetMapping
     fun getTrips(): ResponseEntity<WrappedResponse<List<TripDto>>> {
         return RestResponseFactory.payload(
@@ -26,6 +37,7 @@ class TripRestApi(
         )
     }
 
+    @ApiOperation("Retrieve a trip entity based on trip ID")
     @GetMapping(path = ["/{tripId}"])
     fun getTripById(@PathVariable("tripId") tripId: Long): ResponseEntity<WrappedResponse<TripDto>> {
         val trip = tripService.findByTripIdEager(tripId)
@@ -39,8 +51,13 @@ class TripRestApi(
         }
     }
 
+    @ApiOperation("Creates a new trip. Checks if boat capacity matches crew size and that port IDs are different")
     @PostMapping(consumes = [(MediaType.APPLICATION_JSON_UTF8_VALUE)])
-    fun postTrip(@RequestBody dto: TripDto): ResponseEntity<WrappedResponse<TripDto>> {
+    fun postTrip(
+        @ApiParam("Trip DTO object, that has to contain all properties except for ID")
+        @RequestBody
+        dto: TripDto
+    ): ResponseEntity<WrappedResponse<TripDto>> {
 
         val boat: BoatDto
         val crew: CrewDto
@@ -71,6 +88,7 @@ class TripRestApi(
         return RestResponseFactory.payload(200, dtoWithId)
     }
 
+    @ApiOperation("Delete an existing trip based on trip ID")
     @DeleteMapping(path = ["/{tripId}"])
     fun deleteTrip(@PathVariable("tripId") tripId: Long): ResponseEntity<WrappedResponse<Void>> {
         return try {
@@ -85,8 +103,13 @@ class TripRestApi(
         }
     }
 
+    @ApiOperation("Updates an existing trip, or creates a new one if it does not exist by ID")
     @PutMapping
-    fun putTrip(@RequestBody dto: TripDto): ResponseEntity<WrappedResponse<TripDto>> {
+    fun putTrip(
+        @ApiParam("Trip DTO object, that has to contain all properties including ID")
+        @RequestBody
+        dto: TripDto
+    ): ResponseEntity<WrappedResponse<TripDto>> {
         return try {
             val trip = tripService.putTrip(transform(dto))
             RestResponseFactory.payload(200, transform(trip))

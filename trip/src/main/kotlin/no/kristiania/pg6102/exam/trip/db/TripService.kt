@@ -2,7 +2,6 @@ package no.kristiania.pg6102.exam.trip.db
 
 import no.kristiania.pg6102.exam.shared.dto.BoatDto
 import no.kristiania.pg6102.exam.shared.dto.CrewDto
-import no.kristiania.pg6102.exam.shared.dto.PortDto
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JCircuitBreakerFactory
 import org.springframework.cloud.client.circuitbreaker.CircuitBreaker
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriComponentsBuilder
-import org.tsdes.advanced.rest.dto.WrappedResponse
+import no.kristiania.pg6102.exam.rest.dto.WrappedResponse
 import java.io.IOException
 import java.net.URI
 import javax.annotation.PostConstruct
@@ -134,7 +133,7 @@ class TripService(
     }
 
     fun putTrip(trip: Trip): Trip {
-        validateTrip(trip, true)
+        validateTrip(trip)
         return tripRepository.save(trip)
     }
 

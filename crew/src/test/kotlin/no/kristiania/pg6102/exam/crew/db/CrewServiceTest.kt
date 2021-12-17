@@ -24,6 +24,18 @@ internal class CrewServiceTest {
     }
 
     @Test
+    fun testGetCrewsPagination(){
+
+        val n = 5
+        val page = crewService.getNextPage(n)
+        assertEquals(n, page.size)
+
+        for(i in 0 until n-1) {
+            assertTrue(page[i].crewSize!! >= page[i+1].crewSize!!)
+        }
+    }
+
+    @Test
     fun testGetCrewById() {
         val serviceCrew = crewService.findCrewByIdEager("c000")
 

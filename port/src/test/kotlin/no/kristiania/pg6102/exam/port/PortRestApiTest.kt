@@ -14,7 +14,7 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import javax.annotation.PostConstruct
 
-@ActiveProfiles("PortRestApiTest")
+@ActiveProfiles("PortRestApiTest", "test")
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class PortRestApiTest {
@@ -50,7 +50,7 @@ class PortRestApiTest {
             .get("/api/port/1")
             .then()
             .statusCode(200)
-            .body("data.name", equalTo("Port of Helsinki"))
+            .body("data.name", equalTo("Port of Shanghai"))
     }
 
 
