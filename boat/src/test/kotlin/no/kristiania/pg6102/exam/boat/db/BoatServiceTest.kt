@@ -28,7 +28,7 @@ internal class BoatServiceTest {
         val serviceBoat = boatService.findBoatByIdEager(1)
 
         assertNotNull(serviceBoat)
-        assertEquals(serviceBoat!!.name, "Evergreen")
+        assertEquals(serviceBoat!!.name, "Fishing boat")
     }
 
     @Test

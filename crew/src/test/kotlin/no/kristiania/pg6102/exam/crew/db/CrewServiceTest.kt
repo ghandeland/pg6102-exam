@@ -20,7 +20,7 @@ internal class CrewServiceTest {
     fun testGetAllCrews() {
         val crews = crewService.getAllCrews()
 
-        assertEquals(crews.size, 10)
+        assertEquals(crews.size, 18)
     }
 
     @Test

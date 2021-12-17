@@ -183,33 +183,6 @@ class TripRestApiTest {
             .body("data.boatId", equalTo(dto.boatId!!.toInt()))
     }
 
-    // Put has to provide full objects, this asserts that excluding a property won't work
-    @Test
-    fun testPutTripWithoutId() {
-
-        val dto = TripDto(null, 2, 1, 3, "c007")
-
-        // Post new entity
-        RestAssured.given()
-            .accept(ContentType.JSON)
-            .contentType(ContentType.JSON)
-            .body(dto)
-            .post()
-            .then()
-            .statusCode(200)
-            .extract().body().jsonPath().getLong("data.tripId")
-
-        // Assert that value has been changed on response
-        RestAssured.given()
-            .accept(ContentType.JSON)
-            .contentType(ContentType.JSON)
-            .body(dto)
-            .put()
-            .then()
-            .statusCode(500)
-            .body("message", endsWith("Trip object has missing ID"))
-    }
-
     @Test
     fun testPutTrip() {
 
