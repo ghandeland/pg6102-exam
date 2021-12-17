@@ -2,7 +2,7 @@ package no.kristiania.pg6102.exam.boat
 
 import no.kristiania.pg6102.exam.boat.BoatDtoConverter.transform
 import no.kristiania.pg6102.exam.boat.db.BoatService
-import no.kristiania.pg6102.exam.boat.dto.BoatDto
+import no.kristiania.pg6102.exam.shared.dto.BoatDto
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping

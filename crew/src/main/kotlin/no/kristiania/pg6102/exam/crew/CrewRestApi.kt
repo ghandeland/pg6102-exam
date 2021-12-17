@@ -1,7 +1,7 @@
 package no.kristiania.pg6102.exam.crew
 
 import no.kristiania.pg6102.exam.crew.db.CrewService
-import no.kristiania.pg6102.exam.crew.dto.CrewDto
+import no.kristiania.pg6102.exam.shared.dto.CrewDto
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping

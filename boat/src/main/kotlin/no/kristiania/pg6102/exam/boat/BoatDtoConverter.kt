@@ -1,7 +1,7 @@
 package no.kristiania.pg6102.exam.boat
 
 import no.kristiania.pg6102.exam.boat.db.Boat
-import no.kristiania.pg6102.exam.boat.dto.BoatDto
+import no.kristiania.pg6102.exam.shared.dto.BoatDto
 
 
 object BoatDtoConverter {

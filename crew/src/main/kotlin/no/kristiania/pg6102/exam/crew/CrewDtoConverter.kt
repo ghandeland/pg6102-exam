@@ -1,8 +1,7 @@
 package no.kristiania.pg6102.exam.crew
 
 import no.kristiania.pg6102.exam.crew.db.Crew
-import no.kristiania.pg6102.exam.crew.dto.CrewDto
-
+import no.kristiania.pg6102.exam.shared.dto.CrewDto
 
 object CrewDtoConverter {
     fun transform(crew: Crew): CrewDto {
